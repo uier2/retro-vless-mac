@@ -18,6 +18,7 @@ The installed app needs **no Python, Xcode or Go installation**. It uses macOS's
 
 - VLESS over TCP, WebSocket (WS) and gRPC, with TLS or legacy REALITY options supported by sing-box 1.3.6. Plain VLESS TCP is also accepted; it does not provide TLS protection.
 - Direct VLESS links and plain-text or base64 subscriptions containing VLESS links. Unsupported subscription entries are skipped; unsupported/duplicate link options are rejected.
+- Subscription requests use a V2Ray-compatible User-Agent to request a VLESS link list from providers that otherwise return a sing-box JSON configuration.
 - HTTPS subscription URLs are fetched **only when imported or reimported**. There is **no automatic refresh**, and the subscription URL is not retained for periodic polling. Import replaces the saved server list and requires disconnecting first.
 - Newer protocols and extensions such as XHTTP, newer REALITY/encryption options, insecure TLS and unsupported fingerprints are not supported.
 

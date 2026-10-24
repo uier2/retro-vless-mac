@@ -58,7 +58,7 @@ def main():
     shutil.copy2(ROOT / 'LICENSE', res / 'LICENSE')
     for f in mac.iterdir():
         f.chmod(0o755)
-    info = {'CFBundleName': 'Retro VLESS', 'CFBundleDisplayName': 'Retro VLESS', 'CFBundleIdentifier': 'org.retrovless.legacy', 'CFBundleVersion': '1', 'CFBundleShortVersionString': '1.0', 'CFBundlePackageType': 'APPL', 'CFBundleExecutable': 'launch', 'LSMinimumSystemVersion': '10.13.6', 'NSHighResolutionCapable': True}
+    info = {'CFBundleName': 'Retro VLESS', 'CFBundleDisplayName': 'Retro VLESS', 'CFBundleIdentifier': 'org.retrovless.legacy', 'CFBundleVersion': '2', 'CFBundleShortVersionString': '1.0.1', 'CFBundlePackageType': 'APPL', 'CFBundleExecutable': 'launch', 'LSMinimumSystemVersion': '10.13.6', 'NSHighResolutionCapable': True}
     (app / 'Contents' / 'Info.plist').write_bytes(plistlib.dumps(info))
     source = dist / 'source'
     if source.exists():

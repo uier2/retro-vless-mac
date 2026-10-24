@@ -67,6 +67,14 @@ func listNodes(dir string) (string, error) {
 func publicIP(ip net.IP) bool {
 	return ip != nil && ip.IsGlobalUnicast() && !ip.IsPrivate() && !ip.IsLoopback() && !ip.IsLinkLocalUnicast()
 }
+func subscriptionRequest(link string) (*http.Request, error) {
+	req, e := http.NewRequest("GET", link, nil)
+	if e != nil {
+		return nil, fmt.Errorf("неверная ссылка")
+	}
+	req.Header.Set("User-Agent", "v2rayN/6.0 RetroVLESS/1.0")
+	return req, nil
+}
 func fetchSubscription(link string) ([]Node, error) {
 	kind, e := classify(link)
 	if e != nil || kind != "subscription" {
@@ -101,11 +109,10 @@ func fetchSubscription(link string) ([]Node, error) {
 		}
 		return nil
 	}}
-	req, e := http.NewRequest("GET", link, nil)
+	req, e := subscriptionRequest(link)
 	if e != nil {
-		return nil, fmt.Errorf("неверная ссылка")
+		return nil, e
 	}
-	req.Header.Set("User-Agent", "sing-box/1.3.6 Retro VLESS")
 	resp, e := cl.Do(req)
 	if e != nil {
 		return nil, fmt.Errorf("не удалось скачать подписку: проверьте интернет и срок действия ссылки")
@@ -336,7 +343,7 @@ func runCLI(dir, core string, args []string) (string, error) {
 		}
 		return "отключено", nil
 	case "--version":
-		return "Retro VLESS 1.0 / sing-box 1.3.6 / Intel macOS 10.13 target", nil
+		return "Retro VLESS 1.0.1 / sing-box 1.3.6 / Intel macOS 10.13 target", nil
 	}
 	return "", fmt.Errorf("неизвестная команда")
 }
